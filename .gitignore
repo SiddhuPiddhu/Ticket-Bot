@@ -19,6 +19,8 @@ bot/data/
 *.png
 *.html
 *.txt
+!requirements.txt
+!bot/requirements.txt
 
 .DS_Store
 Thumbs.db
