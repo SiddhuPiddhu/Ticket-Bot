@@ -21,7 +21,17 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r bot/requirements.txt
+          if [ -f bot/requirements.txt ]; then
+            REQ_FILE="bot/requirements.txt"
+          elif [ -f requirements.txt ]; then
+            REQ_FILE="requirements.txt"
+          else
+            echo "No requirements.txt found in expected locations."
+            find . -maxdepth 6 -type f | sort
+            exit 1
+          fi
+          echo "Installing from: ${REQ_FILE}"
+          pip install -r "${REQ_FILE}"
       - name: Ruff
         run: ruff check bot
       - name: Pytest
