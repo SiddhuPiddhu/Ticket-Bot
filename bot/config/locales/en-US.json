@@ -1,0 +1,13 @@
+{
+  "ticket.created": "Ticket created successfully: {channel}",
+  "ticket.closed": "Ticket closed.",
+  "ticket.reopened": "Ticket reopened.",
+  "ticket.claimed": "Ticket claimed by {user}",
+  "ticket.unclaimed": "Ticket unclaimed.",
+  "ticket.locked": "Ticket locked.",
+  "ticket.unlocked": "Ticket unlocked.",
+  "ticket.blacklisted": "You are blacklisted from ticket creation.",
+  "error.permission": "You do not have permission for this action.",
+  "error.unexpected": "An unexpected error occurred.",
+  "analytics.dashboard": "Ticket dashboard generated."
+}

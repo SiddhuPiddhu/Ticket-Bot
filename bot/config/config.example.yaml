@@ -1,0 +1,87 @@
+discord:
+  token: ${DISCORD_TOKEN}
+  prefix: "!"
+  application_id: null
+  sync_commands_on_start: true
+  shard_count: null
+  status_text: "Ticket operations online"
+  activity_type: "watching"
+  allowed_mentions_everyone: false
+
+database:
+  url: "sqlite:///./data/tickets.db"
+  pool_min_size: 2
+  pool_max_size: 10
+  timeout_seconds: 30
+
+redis:
+  enabled: false
+  url: "redis://localhost:6379/0"
+  default_ttl: 120
+
+logging:
+  level: "INFO"
+  directory: "logs"
+  file_name: "bot.log"
+  max_bytes: 10000000
+  backup_count: 10
+  json_console: false
+
+security:
+  ticket_creation_cooldown_seconds: 20
+  ticket_creation_max_per_hour: 8
+  max_open_tickets_per_user: 3
+  anti_raid_window_seconds: 20
+  anti_raid_join_threshold: 20
+  anti_spam_messages_per_10s: 8
+  require_ticket_close_reason: true
+  enable_captcha: false
+  allow_anonymous_tickets: true
+
+transcripts:
+  html_enabled: true
+  txt_enabled: true
+  include_attachments: true
+  storage_directory: "artifacts/transcripts"
+
+metrics:
+  export_directory: "artifacts/exports"
+  enable_graphs: true
+  scheduled_report_cron: "0 8 * * *"
+  leaderboard_size: 10
+
+webhook_log:
+  enabled: false
+  url: ""
+
+fastapi:
+  enabled: false
+  host: "0.0.0.0"
+  port: 8000
+  jwt_secret: ""
+
+i18n:
+  default_locale: "en-US"
+  supported_locales:
+    - "en-US"
+
+enabled_extensions:
+  - "cogs.events"
+  - "cogs.tickets"
+  - "cogs.analytics"
+  - "cogs.admin"
+  - "cogs.security"
+
+ticket_panels:
+  - panel_id: "support-main"
+    guild_id: 0
+    channel_id: 0
+    title: "Support Center"
+    description: "Click below to open a ticket."
+    button_label: "Create Ticket"
+    button_emoji: "🎫"
+    button_style: "primary"
+    category_map: {}
+    support_role_ids: []
+    log_channel_id: null
+    transcript_channel_id: null
