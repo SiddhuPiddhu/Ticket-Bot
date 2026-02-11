@@ -22,13 +22,15 @@ from database.repositories import (
 from services.cache import MemoryCache
 from services.ticket_service import TicketService, TicketServiceDeps
 
+MIGRATIONS_DIR = Path(__file__).resolve().parents[1] / "database" / "migrations"
+
 
 @pytest.mark.asyncio
 async def test_bootstrap_default_categories(tmp_path: Path) -> None:
     db_path = tmp_path / "tickets.db"
     db = Database(url=f"sqlite:///{db_path}")
     await db.connect()
-    await run_migrations(db, Path(__file__).resolve().parents[1] / "database" / "migrations")
+    await run_migrations(db, MIGRATIONS_DIR)
 
     deps = TicketServiceDeps(
         guild_repo=GuildRepository(db),

@@ -40,7 +40,7 @@ class SetupWizardModal(discord.ui.Modal, title="Ticket Panel Setup"):
         max_length=1000,
     )
 
-    def __init__(self, bot: "TicketBot") -> None:
+    def __init__(self, bot: TicketBot) -> None:
         super().__init__(timeout=600)
         self.bot = bot
 
@@ -93,7 +93,7 @@ class SetupWizardModal(discord.ui.Modal, title="Ticket Panel Setup"):
 
 
 class SetupWizardView(discord.ui.View):
-    def __init__(self, bot: "TicketBot") -> None:
+    def __init__(self, bot: TicketBot) -> None:
         super().__init__(timeout=300)
         self.bot = bot
 

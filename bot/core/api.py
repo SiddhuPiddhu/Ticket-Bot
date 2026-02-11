@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import FastAPI, Header, HTTPException
 
 from core.bot import TicketBot
 

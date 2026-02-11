@@ -2,9 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from datetime import datetime, timedelta, timezone
-from pathlib import Path
-from typing import Any, cast
+from datetime import UTC, datetime, timedelta
 
 import discord
 from discord.ext import commands, tasks
@@ -12,7 +10,7 @@ from discord.ext import commands, tasks
 from core.bot import TicketBot
 from core.errors import TicketNotFound, ValidationError
 from database.models import TicketRecord
-from utils.embeds import error_embed, make_embed, staff_embed, success_embed
+from utils.embeds import make_embed, staff_embed, success_embed
 from views.ticket_controls import TicketControlsView
 from views.ticket_panel import TicketPanelView
 
@@ -299,7 +297,7 @@ class TicketsCog(commands.Cog):
         job_id = await self.bot.automation_service.schedule_auto_close(
             ticket_id=ticket.id, guild_id=ticket.guild_id, after_minutes=minutes
         )
-        eta = datetime.now(timezone.utc) + timedelta(minutes=minutes)
+        eta = datetime.now(UTC) + timedelta(minutes=minutes)
         await channel.send(
             embed=staff_embed(
                 "Auto-Close Scheduled",

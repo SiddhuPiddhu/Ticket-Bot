@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import discord
 
@@ -8,14 +8,15 @@ import discord
 def make_embed(
     title: str,
     description: str,
-    color: discord.Color = discord.Color.blurple(),
+    color: discord.Color | None = None,
     footer: str | None = None,
 ) -> discord.Embed:
+    resolved_color = color if color is not None else discord.Color.blurple()
     embed = discord.Embed(
         title=title,
         description=description,
-        color=color,
-        timestamp=datetime.now(timezone.utc),
+        color=resolved_color,
+        timestamp=datetime.now(UTC),
     )
     if footer:
         embed.set_footer(text=footer)

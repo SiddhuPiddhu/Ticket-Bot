@@ -4,7 +4,6 @@ import logging
 import re
 from dataclasses import dataclass
 from datetime import timedelta
-from typing import Any
 from uuid import uuid4
 
 import discord

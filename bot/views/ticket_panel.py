@@ -34,9 +34,9 @@ class CaptchaModal(discord.ui.Modal):
     def __init__(
         self,
         expected: str,
-        bot: "TicketBot",
-        panel: "TicketPanel",
-        categories: list["TicketCategory"],
+        bot: TicketBot,
+        panel: TicketPanel,
+        categories: list[TicketCategory],
     ) -> None:
         super().__init__(title=f"Captcha: {expected}", timeout=180)
         self.expected = expected
@@ -61,9 +61,9 @@ class CaptchaModal(discord.ui.Modal):
 class DynamicTicketModal(discord.ui.Modal):
     def __init__(
         self,
-        bot: "TicketBot",
-        panel: "TicketPanel",
-        category: "TicketCategory",
+        bot: TicketBot,
+        panel: TicketPanel,
+        category: TicketCategory,
         opener: discord.Member,
         anonymous: bool = False,
     ) -> None:
@@ -144,7 +144,7 @@ class DynamicTicketModal(discord.ui.Modal):
 
 
 class TicketCategorySelect(discord.ui.Select):
-    def __init__(self, bot: "TicketBot", panel: "TicketPanel", categories: list["TicketCategory"]) -> None:
+    def __init__(self, bot: TicketBot, panel: TicketPanel, categories: list[TicketCategory]) -> None:
         options = [
             discord.SelectOption(label=cat.display_name[:100], value=cat.key, description=cat.description[:100])
             for cat in categories[:25]
@@ -191,13 +191,13 @@ class TicketCategorySelect(discord.ui.Select):
 
 
 class TicketCategoryView(discord.ui.View):
-    def __init__(self, bot: "TicketBot", panel: "TicketPanel", categories: list["TicketCategory"]) -> None:
+    def __init__(self, bot: TicketBot, panel: TicketPanel, categories: list[TicketCategory]) -> None:
         super().__init__(timeout=300)
         self.add_item(TicketCategorySelect(bot, panel, categories))
 
 
 class TicketCreateButton(discord.ui.Button["TicketPanelView"]):
-    def __init__(self, bot: "TicketBot", panel: "TicketPanel") -> None:
+    def __init__(self, bot: TicketBot, panel: TicketPanel) -> None:
         super().__init__(
             label=panel.button_label,
             emoji=panel.button_emoji,
@@ -236,7 +236,7 @@ class TicketCreateButton(discord.ui.Button["TicketPanelView"]):
 
 
 class TicketPanelView(discord.ui.View):
-    def __init__(self, bot: "TicketBot", panel: "TicketPanel") -> None:
+    def __init__(self, bot: TicketBot, panel: TicketPanel) -> None:
         super().__init__(timeout=None)
         self.bot = bot
         self.panel = panel

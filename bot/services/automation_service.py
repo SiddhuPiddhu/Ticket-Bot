@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from uuid import uuid4
 
@@ -29,19 +29,19 @@ class AutomationService:
     @staticmethod
     def _db_now() -> datetime:
         # Store/compare UTC as naive datetime for PostgreSQL TIMESTAMP compatibility.
-        return datetime.now(timezone.utc).replace(tzinfo=None)
+        return datetime.now(UTC).replace(tzinfo=None)
 
     @staticmethod
     def _as_datetime(value: Any) -> datetime:
         if isinstance(value, datetime):
             if value.tzinfo is not None:
-                return value.astimezone(timezone.utc).replace(tzinfo=None)
+                return value.astimezone(UTC).replace(tzinfo=None)
             return value
         if isinstance(value, str):
             normalized = value.replace("Z", "+00:00")
             parsed = datetime.fromisoformat(normalized)
             if parsed.tzinfo is not None:
-                return parsed.astimezone(timezone.utc).replace(tzinfo=None)
+                return parsed.astimezone(UTC).replace(tzinfo=None)
             return parsed
         raise TypeError(f"Unsupported datetime value type: {type(value)!r}")
 

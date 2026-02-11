@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
@@ -23,7 +23,7 @@ def _json_dump(value: Any) -> str:
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 class GuildRepository:
@@ -732,7 +732,7 @@ class BlacklistRepository:
         if until_at:
             try:
                 expiry = datetime.fromisoformat(until_at.replace("Z", "+00:00"))
-                if expiry <= datetime.now(timezone.utc):
+                if expiry <= datetime.now(UTC):
                     await self.remove(guild_id, user_id)
                     return None
             except ValueError:

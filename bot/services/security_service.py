@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import logging
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import aiohttp
@@ -85,7 +85,7 @@ class SecurityService:
                             {
                                 "title": title,
                                 "description": f"```json\n{json.dumps(payload, indent=2)[:3500]}\n```",
-                                "timestamp": datetime.now(timezone.utc).isoformat(),
+                                "timestamp": datetime.now(UTC).isoformat(),
                             }
                         ],
                     },
@@ -105,4 +105,4 @@ class SecurityService:
         await self.audit_repo.log(guild_id, actor_id, action, target_id, metadata)
 
     async def ttl_ban_until(self, hours: int) -> str:
-        return (datetime.now(timezone.utc) + timedelta(hours=hours)).isoformat()
+        return (datetime.now(UTC) + timedelta(hours=hours)).isoformat()

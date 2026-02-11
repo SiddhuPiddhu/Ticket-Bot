@@ -26,7 +26,7 @@ class CloseReasonModal(discord.ui.Modal, title="Close Ticket"):
         required=True,
     )
 
-    def __init__(self, controls_view: "TicketControlsView") -> None:
+    def __init__(self, controls_view: TicketControlsView) -> None:
         super().__init__(timeout=300)
         self.controls_view = controls_view
 
@@ -80,7 +80,7 @@ class CloseReasonModal(discord.ui.Modal, title="Close Ticket"):
 
 
 class TicketControlsView(discord.ui.View):
-    def __init__(self, bot: "TicketBot", ticket_id: str) -> None:
+    def __init__(self, bot: TicketBot, ticket_id: str) -> None:
         super().__init__(timeout=None)
         self.bot = bot
         self.ticket_id = ticket_id

@@ -15,17 +15,17 @@ class BotError(RuntimeError):
 
 
 @dataclass(slots=True)
-class PermissionDenied(BotError):
+class PermissionDeniedError(BotError):
     user_message: str = "You do not have permission to run this action."
 
 
 @dataclass(slots=True)
-class TicketLimitReached(BotError):
+class TicketLimitReachedError(BotError):
     user_message: str = "You reached the maximum open ticket limit."
 
 
 @dataclass(slots=True)
-class TicketNotFound(BotError):
+class TicketNotFoundError(BotError):
     user_message: str = "The requested ticket could not be found."
 
 
@@ -37,6 +37,12 @@ class TicketStateError(BotError):
 @dataclass(slots=True)
 class ValidationError(BotError):
     user_message: str = "The provided input is not valid."
+
+
+# Backward-compatible aliases used across the codebase.
+PermissionDenied = PermissionDeniedError
+TicketLimitReached = TicketLimitReachedError
+TicketNotFound = TicketNotFoundError
 
 
 async def send_error_response(

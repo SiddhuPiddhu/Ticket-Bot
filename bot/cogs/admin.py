@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 import shutil
-from datetime import datetime, timedelta, timezone
-from pathlib import Path
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import discord
@@ -187,7 +186,7 @@ class AdminCog(commands.Cog):
         self, ctx: commands.Context[TicketBot], user: discord.User, hours: int, *, reason: str
     ) -> None:
         await self._assert_admin(ctx)
-        until = (datetime.now(timezone.utc) + timedelta(hours=hours)).isoformat() if hours > 0 else None
+        until = (datetime.now(UTC) + timedelta(hours=hours)).isoformat() if hours > 0 else None
         await self.bot.ticket_service.blacklist_user(
             guild_id=ctx.guild.id,  # type: ignore[union-attr]
             actor_id=ctx.author.id,
@@ -219,7 +218,7 @@ class AdminCog(commands.Cog):
         source = self.bot.root_dir / "config" / "config.yaml"
         backup_dir = self.bot.root_dir / "config" / "backups"
         backup_dir.mkdir(parents=True, exist_ok=True)
-        stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        stamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
         target = backup_dir / f"config_{stamp}.yaml"
         shutil.copyfile(source, target)
         await ctx.reply(embed=success_embed(f"Backup saved: `{target.name}`"), mention_author=False)
